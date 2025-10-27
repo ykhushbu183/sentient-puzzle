@@ -1,3 +1,4 @@
+import FallingLogos from "./components/FallingLogos"
 import React, { useState } from 'react'
 import LevelSelect from './components/LevelSelect'
 import PuzzleBoard from './components/PuzzleBoard'
