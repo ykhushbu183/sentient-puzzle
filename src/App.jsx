@@ -1,21 +1,22 @@
+import React from "react"
 import FallingLogos from "./components/FallingLogos"
-import React, { useState } from 'react'
-import LevelSelect from './components/LevelSelect'
-import PuzzleBoard from './components/PuzzleBoard'
-import { images } from './images'
+import LevelSelect from "./components/LevelSelect"
+import PuzzleGame from "./components/PuzzleGame"
+import "./App.css"
 
-export default function App() {
-  const [level, setLevel] = useState(null)
-
+function App() {
   return (
     <div className="app">
-      {!level ? (
-        <LevelSelect onSelect={setLevel} />
-      ) : (
-        <PuzzleBoard gridSize={level} images={images} onBack={() => setLevel(null)} />
-      )}
-      <footer className="footer">made by <a href="https://x.com/sonuwork37" target="_blank" rel="noreferrer">@sonuwork37</a></footer>
+      {/* Background me falling sentient logos */}
+      <FallingLogos />
+
+      {/* Game box ke andar sab kuch chalega */}
+      <div className="game-box">
+        <LevelSelect />
+        <PuzzleGame />
+      </div>
     </div>
   )
 }
 
+export default App
