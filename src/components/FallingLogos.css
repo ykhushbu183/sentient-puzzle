@@ -1,31 +1,43 @@
-.falling-logo-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  z-index: 0;
-  pointer-events: none;
-}
+import React, { useEffect, useState } from "react";
 
-.falling-logo {
-  position: absolute;
-  top: -100px;
-  opacity: 0.8;
-  animation: fallAndSpin linear infinite;
-}
+export default function FallingLogos() {
+  const [logos, setLogos] = useState([]);
 
-@keyframes fallAndSpin {
-  0% {
-    transform: translateY(-100px) rotate(0deg);
-    opacity: 0.5;
-  }
-  30% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(110vh) rotate(360deg);
-    opacity: 0;
-  }
+  useEffect(() => {
+    const generateLogos = () => {
+      const newLogos = Array.from({ length: 7 }, (_, i) => ({
+        id: i,
+        left: Math.random() * 100, // random horizontal position
+        size: 30 + Math.random() * 60, // size 30–90px
+        duration: 5 + Math.random() * 5, // fall speed 5–10s
+        delay: Math.random() * 5, // random delay
+        rotation: Math.random() * 360, // random start rotation
+      }));
+      setLogos(newLogos);
+    };
+
+    generateLogos();
+    const interval = setInterval(generateLogos, 8000); // new batch every 8s
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="falling-logos">
+      {logos.map((logo) => (
+        <img
+          key={logo.id}
+          src="/logo.png"
+          alt="sentient logo"
+          className="falling-logo"
+          style={{
+            left: `${logo.left}%`,
+            width: `${logo.size}px`,
+            height: `${logo.size}px`,
+            animation: `fall ${logo.duration}s linear ${logo.delay}s infinite`,
+            transform: `rotate(${logo.rotation}deg)`,
+          }}
+        />
+      ))}
+    </div>
+  );
 }
